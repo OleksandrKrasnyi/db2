@@ -1,0 +1,37 @@
+/*
+=============== D E P R E C A T E D =============== 
+Table space will be represented as partitions.
+Partition is a storage unit used to store the table rows.
+Only one table can be stored for partition.
+Each partition can contain one data set.
+One data set contains only one table information.
+Max 64 partitions can be stored for the table.
+NUMPART will represent the partitions during the table space creation.
+If NUMPART is coded during the declaration, then the table space is partitioned table space.
+*/
+
+   CREATE TABLESPACE Table-space
+	IN database-space
+	NUMPARTS num-parts
+     (PART 1 USING STOGROUP storage-group-name
+	PRIQTY Priqty-value
+	SECQTY Secqty-value
+	FREEPAGE Integer
+	PCTFREE Pctfree-value,
+      PART 2 USING STOGROUP storage-group-name
+	PRIQTY Priqty-value
+	SECQTY Secqty-value
+	FREEPAGE Integer
+	PCTFREE Pctfree-value,
+       .
+       .
+       .
+      PART n USING STOGROUP storage-group-name
+	PRIQTY Priqty-value
+	SECQTY Secqty-value
+	FREEPAGE Integer
+	PCTFREE Pctfree-value
+     )
+	BUFFERPOOL Bufferpool-value
+	MAXROWS max-rows-value
+	CLOSE {YES/NO }

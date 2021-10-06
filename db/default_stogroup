@@ -1,0 +1,8 @@
+/*
+Create database DSN8TEMP.
+Use the defaults for the default storage group and default buffer pool names.
+Specify ASCII as the default encoding scheme for data stored in the database.
+*/
+
+   CREATE DATABASE DSN8TEMP
+     CCSID ASCII;

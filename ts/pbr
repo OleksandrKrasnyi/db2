@@ -1,0 +1,53 @@
+/*
+Assume that a large query database application uses a table space to record historical sales data for marketing statistics. Create large table space SALESHX in database DSN8D12A for the application. Create it with 82 partitions, specifying that the data in partitions 80 through 82 is to be compressed.
+Let Db2 define the data sets for all the partitions in the table space, using storage group DSN8G120. For each data set, the primary space allocation is 4000 kilobytes, and the secondary space allocation is 130 kilobytes. Except for the data set for partition 82, the data sets do not need to be erased before they are deleted.
+
+Locking on the table is to take place at the page level. There can only be one table in a partitioned table space. Associate the table space with buffer pool BP1. The data sets cannot be closed when no one is using the table space. If there are no CLOSE YES data sets to close, Db2 might close the CLOSE NO data sets when the DSMAX is reached.
+*/
+
+   CREATE TABLESPACE SALESHX
+     IN DSN8D12A
+     USING STOGROUP DSN8G120
+       PRIQTY 4000
+       SECQTY 130
+       ERASE NO
+     NUMPARTS 82
+     (PARTITION 80
+       COMPRESS YES,
+      PARTITION 81
+       COMPRESS YES,
+      PARTITION 82
+       COMPRESS YES
+       ERASE YES)
+     LOCKSIZE PAGE
+     BUFFERPOOL BP1
+     CLOSE NO;
+
+
+/*
+Following table space has 16 pages per segment and has 55 partitions. It specifies LOCKSIZE ANY.
+*/
+
+   CREATE TABLESPACE TS1
+     IN DSN8D12A
+     USING STOGROUP DSN8G120
+     NUMPARTS 55
+     SEGSIZE 16
+     LOCKSIZE ANY;
+
+/*
+Next table space has 64 pages per segment and has seven defer-defined partitions, where every other partition is compressed.
+*/
+
+   CREATE TABLESPACE TS2
+     IN DSN8D12A
+     USING STOGROUP DSN8G120
+     NUMPARTS 7
+     (
+      PARTITION 1 COMPRESS YES,
+      PARTITION 3 COMPRESS YES,
+      PARTITION 5 COMPRESS YES,
+      PARTITION 7 COMPRESS YES
+     )
+     SEGSIZE 64
+     DEFINE NO;

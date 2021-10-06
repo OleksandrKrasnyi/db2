@@ -1,0 +1,9 @@
+/*
+Is it required to alter already existing table or
+it may be specified in the 'CREATE TABLE' statement?
+*/
+
+ALTER TABLE EMP
+  ADD EMP_RESUME CLOB(5M);
+
+

@@ -1,0 +1,11 @@
+/*
+Create database DSN8D12P.
+Specify DSN8G120 as the default storage group to be used for the table spaces and indexes in the database.
+Specify 8KB buffer pool BP8K1 as the default buffer pool to be used for table spaces in the database,
+and BP2 as the default buffer pool to be used for indexes in the database.
+*/
+
+   CREATE DATABASE DSN8D12P
+     STOGROUP DSN8G120
+     BUFFERPOOL BP8K1
+     INDEXBP BP2;

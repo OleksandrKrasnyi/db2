@@ -1,0 +1,12 @@
+/*
+Db2 implicitly creates a partition-by-growth or partition-by-range table space
+when you issue a CREATE TABLE statement without specifying an existing table space name.
+*/
+
+   CREATE TABLE TEST02TB( 
+     C1 SMALLINT, 
+     C2 DECIMAL(9,2), 
+     C3 CHAR(4)) 
+     PARTITION BY SIZE EVERY 4G 
+     IN TEST02DB; 
+     COMMIT;

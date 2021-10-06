@@ -1,0 +1,33 @@
+/*
+Create a table space DSN8S12D in database DSN8D12A.
+Let Db2 define the data sets, using storage group DSN8G120.
+The primary space allocation is 52 kilobytes; the secondary, 20 kilobytes.
+The data sets need not be erased before they are deleted.
+Locking on tables in the space is to take place at the page level.
+Associate the table space with buffer pool BP1.
+The data sets can be closed when no one is using the table space.
+The underlying data sets for the table space will be created immediately, which is the default (DEFINE YES).
+*/
+   CREATE TABLESPACE DSN8S12D
+     IN DSN8D12A
+     USING STOGROUP DSN8G120
+       PRIQTY 52
+       SECQTY 20
+       ERASE NO
+     LOCKSIZE PAGE
+     BUFFERPOOL BP1
+     CLOSE YES;
+
+
+/*
+The following creates a partition-by-growth table space that has
+a maximum size of 2 GB for each partition, four pages per segment with a maximum of 24 partitions for the table space.
+*/
+
+   CREATE TABLESPACE TS01TS
+     IN TS01DB
+     USING STOGROUP SG1
+     DSSIZE 2G
+     MAXPARTITIONS 24
+     LOCKSIZE ANY
+     SEGSIZE 4;

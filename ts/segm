@@ -1,0 +1,27 @@
+/*
+=============== D E P R E C A T E D ===============
+Table space will be represented as Segments and data will be stored in the segments.
+All the segments are of same size.Segment’s is nothing but the set of pages.
+The page number can be defined by SEGSIZE during the TABLESPACE definition.
+One Table can be stored in one or more segments.
+One segment can contain only one table rows.
+At any point of time, none of the two tables rows couldn’t stored on same segment.
+SEGSIZE will be used to define the table space as segmented.
+If the SEGSIZE value provided during the declaration of table space, then the table space is segmented table space.
+*/
+
+   CREATE TABLESPACE tablespace-name
+     IN database-nameUSING
+     STOGROUP storage-group-name
+     PRIQTY priqty-value
+     SECQTY secqty-value
+     ERASE {NO/YES}
+     FREEPAGE freepage-value
+     PCTFREE pctfree-value
+     COMPRESS {YES/NO }
+     SEGSIZE segment-size
+     BUFFERPOOL bufferpool-value
+     LOCKSIZE {ANY/locksize-value}
+     LOCKMAX {SYSTEM/lockmax-value}
+     CLOSE {YES/NO}
+     MAXROWS {1-255}

@@ -1,0 +1,15 @@
+/*
+Assume that a column named EMP_PHOTO with a data type of BLOB(110K) has been added to the sample employee table for each employee's photo. Create LOB table space PHOTOLTS in database DSN8D12A for the auxiliary table that will hold the BLOB data.
+Let Db2 define the data sets for the table space, using storage group DSN8G120. For each data set, the primary space allocation is 3200 kilobytes, and the secondary space allocation is 1600 kilobytes. The data sets do not need to be erased before they are deleted. (Because ERASE NO is the default, the clause does not have to be explicitly specified to get that behavior.)
+*/
+
+   CREATE LOB TABLESPACE PHOTOLTS
+     IN DSN8D12A
+     USING STOGROUP DSN8G120
+       PRIQTY 3200
+       SECQTY 1600
+     LOCKSIZE LOB
+     BUFFERPOOL BP16K0
+     GBPCACHE SYSTEM
+     NOT LOGGED
+     CLOSE NO;

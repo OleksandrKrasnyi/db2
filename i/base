@@ -1,0 +1,24 @@
+/*
+INDEX is the link to access the data from the database very quickly.
+This index will decide the rows storing place based on the index type so that the data can be easily accessed without any delay.
+INDEX is an ordered set of pointers to the rows of table data.
+DB2 uses indexes to uniqueness and improve the performance.
+An index is stored separately from the data in table.
+Index's are physically stored in its index space.
+An Index can be partitioned or non-partitioned.
+*/
+
+   CREATE (|UNIQUE) INDEX index-name
+     ON table-name column-name
+     key-expression ASC/DESC/RANDOM
+     NOT CLUSTER/CLUSTER
+     PARTITIONED
+     NOT PADDED/PADDED
+     DEFINE YES/NO
+     COMPRESS NO/YES
+     PARTITION BY partition
+     BUFFERPOOL bpname
+     CLOSE YES/NO
+     DEFER NO/YES
+     PIECESIZE integer K/M/G
+     COPY NO/YES
