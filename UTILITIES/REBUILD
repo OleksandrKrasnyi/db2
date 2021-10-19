@@ -1,0 +1,31 @@
+//DB2JOBU  JOB (UTILITY),'DB2 REBUILD IDX',MSGCLASS=X,CLASS=X, 
+//          NOTIFY=USER 
+//**************************************************************** 
+//*         DB2 REBUILD INDEX UTILITY 
+//**************************************************************** 
+//UTIL EXEC DSNUPROC,SYSTEM=DSN,UID='RBLDINDX',UTPROC=" 
+//* 
+//*  UTILITY WORK DATASETS 
+//* 
+//DSNUPROC.SORTWK01 DDUNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SORTWK02 DDUNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SYSUT1 DD DSN=&&SYSUT1, 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)),DCB=BUFNO=20 
+//DSNUPROC.UTPRINT DD SYSOUT=X 
+//* 
+//*  UTILITY INPUT CONTROL STATEMENTS 
+//*    1. The first REBUILD INDEX statement rebuilds the 
+//*       DSN8810.XPROJ2 index. 
+//*    2. The second REBUILD INDEX statement rebuilds only 
+//*       the third partition of the DSN8810.XEMP1 
+//*       partitioning index. 
+//*    3. The third and final REBUILD INDEX statement 
+//*       rebuilds all indexes on all tables in the 
+//*       DSN8D81A.DSN8S81C table space. 
+//* 
+//DSNUPROC.SYSIN    DD  *
+     REBUILD INDEX (DSN8810.XPROJ2)     
+     REBUILD INDEX (DSN8810.XEMP1) DSNUM 3     
+     REBUILD INDEX (ALL) TABLESPACE DSN8D81A.DSN8S81C 
+/* 
+//

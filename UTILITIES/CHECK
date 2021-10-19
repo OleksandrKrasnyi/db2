@@ -1,0 +1,87 @@
+//DB2JOBU  JOB (UTILITY),'DB2 CHECK DATA',MSGCLASS=X,CLASS=X, 
+//   NOTIFY=USER 
+//**************************************************************** 
+//*            DB2 CHECK DATA UTILITY 
+//**************************************************************** 
+//UTIL EXEC DSNUPROC,SYSTEM=DSN,UID='CHEKDATA',UTPROC=" 
+//* 
+//*  UTILITY WORK DATASETS 
+//* 
+//DSNUPROC.SORTWK01 DD UNIT=SYSDA,SPACE=(CYL,(5,1)) 
+//DSNUPROC.SORTWK02 DD UNIT=SYSDA,SPACE=(CYL,(5,1)) 
+//DSNUPROC.SORTOUT DD DSN=&&SORTOUT, 
+//        UNIT=SYSDA,SPACE=(CYL,(5,1)) 
+//DSNUPROC.SYSERR DD DSN=&&SYSERR, 
+//        UNIT=SYSDA,SPACE=(CYL,(1,1)) 
+//DSNUPROC.SYSUT1 DD DSN=&&SYSUT1, 
+//        UNIT=SYSDA,SPACE=(CYL,(5,1)) 
+//DSNUPROC.UTPRINT DD SYSOUT=X 
+//* 
+//*  UTILITY INPUT CONTROL STATEMENTS 
+//*       This CHECK DATA statement checks DSN8810.DEPT for 
+//*       referential constraint violations, deletes all 
+//*       offending rows, and places them into the exception 
+//*       table, DSN8510.DEPT_EXCPTN. 
+//* //DSNUPROC.SYSIN    DD  *
+     CHECK DATA TABLESPACE DSN8D81A.DSN8S81D     
+     FOR EXCEPTION IN DSN8810.DEPT             
+     USE DSN8810.DEPT_EXCPTN     
+     SCOPE ALL     
+     DELETE YES 
+/* 
+//
+
+
+//DB2JOBU  JOB (UTILITY),'DB2 CHECK LOB',MSGCLASS=X,CLASS=X, 
+//   NOTIFY=USER 
+//**************************************************************** 
+//*            DB2 CHECK LOB UTILITY 
+//**************************************************************** 
+//* 
+//UTIL EXEC DSNUPROC,SYSTEM=DSN,UID='CHECKLOB',UTPROC=" 
+//* 
+//*  UTILITY WORK DATASETS 
+//* //DSNUPROC.SORTWK01 DD UNIT=SYSDA,SPACE=(CYL,(5,1)) 
+//DSNUPROC.SORTWK02 DD UNIT=SYSDA,SPACE=(CYL,(5,1)) 
+//DSNUPROC.SORTOUT DD DSN=&&SORTOUT, 
+//        UNIT=SYSDA,SPACE=(CYL,(5,1)) 
+//DSNUPROC.SYSERR DD DSN=&&SYSERR, 
+//        UNIT=SYSDA,SPACE=(CYL,(1,1)) 
+//DSNUPROC.SYSUT1 DD DSN=&&SYSUT1, 
+//        UNIT=SYSDA,SPACE=(CYL,(5,1)) 
+//DSNUPROC.UTPRINT DD SYSOUT=X 
+//DSNUPROC.SYSIN    DD  *
+     CHECK LOB TABLESPACE DSN8D81L.DSN8S81M      
+     EXCEPTIONS 0 
+/* 
+//
+
+
+//DB2JOBU  JOB (UTILITY),'DB2 CHECK INDEX',MSGCLASS=X,CLASS=X, 
+//   NOTIFY=USER 
+//**************************************************************** 
+//*            DB2 CHECK INDEX UTILITY 
+//**************************************************************** 
+//* 
+//UTIL EXEC DSNUPROC,SYSTEM=DSN,UID='CHEKINDX',UTPROC=" 
+//* 
+//*  UTILITY WORK DATASETS 
+//* 
+//DSNUPROC.SORTWK01 DD UNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SORTWK02 DD UNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SYSUT1 DD DSN=&&SYSUT1, 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)),DCB=BUFNO=20 
+//DSNUPROC.UTPRINT DD SYSOUT=X 
+//* 
+//*  UTILITY INPUT CONTROL STATEMENTS 
+//*       The first CHECK INDEX statement checks all indexes 
+//*       for the named table space. 
+//*       The next two CHECK INDEX statements check only the 
+//*       specifically named indexes. 
+//* 
+//DSNUPROC.SYSIN    DD  *
+     CHECK INDEX(ALL) TABLESPACE DSN8D81A.DSN8S81D     
+     CHECK INDEX (DSN8810.XACT1)     
+     CHECK INDEX (DSN8810.XACT2) 
+/* 
+//

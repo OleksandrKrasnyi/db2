@@ -1,0 +1,63 @@
+//DB2JOBU JOB (UTILITY),'FULL RECOVERY',CLASS=X,MSGCLASS=X, 
+//NOTIFY=USER 
+//**************************************************************** 
+//*        DB2 RECOVER UTILITY  ::  FULL RECOVERY  
+//**************************************************************** 
+//RCVR EXEC DSNUPROC,SYSTEM=DSN,UID='FULLRECV',UTPROC=" 
+//* 
+//*  UTILITY INPUT CONTROL STATEMENTS 
+//*    1. The first RECOVER statement recovers the 
+//*       DSN8D81A.DSN8S81C table space to the current point 
+//*       in time. 
+//*    2. The second RECOVER statement recovers all indexes 
+//*       in the table space. 
+//* 
+//DSNUPROC.SYSIN    DD  *
+     RECOVER TABLESPACE DSN8D81A.DSN8S81C
+     DSNUM ALL
+     REBUILD INDEX(ALL) 
+     TABLESPACE DSN8D81A.DSN8S81C 
+/* 
+// 
+
+
+//DB2JOBU JOB (UTILITY),'FULL RECOVERY',CLASS=X,MSGCLASS=X, 
+//NOTIFY=USER 
+//**************************************************************** 
+//*        DB2 RECOVER UTILITY  ::  FULL RECOVERY 
+//**************************************************************** 
+//RCVR EXEC DSNUPROC,SYSTEM=DSN,UID='FULLRECV',UTPROC=" 
+//* 
+//*  UTILITY INPUT CONTROL STATEMENTS 
+//*    1. The first RECOVER statement recovers the 
+//*       DSN8D81A.DSN8S81C table space to the current point 
+//*       in time. 
+//*    2. The second RECOVER statement recovers all indexes 
+//*       in the table space. 
+//* 
+//DSNUPROC.SYSIN    DD  *
+     RECOVER TABLESPACE DSN8D81A.DSN8S81C
+     DSNUM ALL     
+     REBUILD INDEX(ALL) 
+     TABLESPACE DSN8D81A.DSN8S81C 
+/* 
+//
+
+
+//DB2JOBU  JOB (UTILITY),'DB2 RECVR INDEX',MSGCLASS=X,CLASS=X, 
+//          NOTIFY=USER 
+//****************************************************************  
+//*         DB2 RECOVER INDEXSPACE UTILITY  
+//**************************************************************** 
+//UTIL EXEC DSNUPROC,SYSTEM=DSN,UID='RCVRINDX',UTPROC=" 
+//* 
+//*  UTILITY WORK DATASETS 
+//* 
+//* 
+//*  UTILITY INPUT CONTROL STATEMENTS 
+//*     Recovers the XPROJ1 index from an image copy. 
+//* 
+//DSNUPROC.SYSIN    DD  *
+     RECOVER INDEXSPACE DSN8D81A.XPROJ1 
+/* 
+// 
