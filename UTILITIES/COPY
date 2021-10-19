@@ -1,0 +1,57 @@
+ //DB2JOBU JOB (UTILITY),'FULL IMAGE COPY',CLASS=X,MSGCLASS=X, 
+ //         NOTIFY=USER 
+ //**************************************************************** 
+ //*        DB2 COPY UTILITY::FULL COPY 
+ //**************************************************************** 
+ //COPY EXEC DSNUPROC,SYSTEM=DSN,UID='FULLCOPY',UTPROC=" 
+ //* 
+ //DSNUPROC.COPY1 DD DSN=CAT.FULLCOPY.SEQ.DATASET1(+1), 
+ //       DISP=(MOD,CATLG),DCB=SYS1.MODEL, 
+ //       SPACE=(CYL,(5,2),RLSE),UNIT=3390 
+ //DSNUPROC.COPY2 DD DSN=CAT.FULLCOPY.SEQ.DATASET2(+1), 
+ //       DISP=(MOD,CATLG),DCB=SYS1.MODEL, 
+ //       SPACE=(CYL,(5,2),RLSE),UNIT=3390 
+ //DSNUPROC.SYSIN    DD  *
+      COPY TABLESPACE DSN8D881A.DSN8S881D          
+      COPYDDN (COPY1, COPY2)          
+      SHRLEVEL REFERENCE          
+      DSNUM ALL   
+      FULL YES 
+ /* 
+ // 
+ 
+ 
+ //DB2JOBU JOB (UTILITY),'INCREMENTAL COPY',CLASS=X,MSGCLASS=X, 
+ //         NOTIFY=USER 
+ //**************************************************************** 
+ //*        DB2 COPY UTILITY :: INCREMENTAL COPY 
+ //**************************************************************** 
+ //COPY EXEC DSNUPROC,SYSTEM=DSN,UID='INCRCOPY',UTPROC=" 
+ //* 
+ //DSNUPROC.SYSCOPY DD DSN=CAT.INCRCOPY.SEQ.DATASET(+1), 
+ //       DISP=(MOD,CATLG),DCB=SYS1.MODEL, 
+ //       SPACE=(CYL,(2,2),RLSE),UNIT=3380 
+ //DSNUPROC.SYSIN    DD  *
+      COPY TABLESPACE DSN8D881A.DSN8S881D
+      SHRLEVEL REFERENCE          
+      DSNUM ALL   
+      FULL NO 
+/* 
+// 
+
+
+//DB2JOBU JOB (UTILITY),INDEX COPY',CLASS=X,MSGCLASS=X, 
+//         NOTIFY=USER 
+//**************************************************************** 
+//*        DB2 COPY UTILITY :: INDEX COPY 
+//**************************************************************** 
+//COPY EXEC DSNUPROC,SYSTEM=DSN,UID='INDXCOPY',UTPROC=" 
+//* 
+//DSNUPROC.SYSCOPY DD DSN=CAT.INDXCOPY.SEQ.DATASET(+1), 
+//       DISP=(MOD,CATLG),DCB=(SYS1.MODEL,BUFNO=20), 
+//       SPACE=(CYL,(1,1),RLSE),UNIT=3390 
+//DSNUPROC.SYSIN    DD  *
+     COPY INDEXSPACE DSN8D881A.XPROJ1          
+     SHRLEVEL REFERENCE 
+/* 
+// 

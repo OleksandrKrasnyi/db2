@@ -1,0 +1,90 @@
+//DB2JOBU  JOB (UTILITY),'DB2 LOAD',MSGCLASS=X,CLASS=X, 
+//          NOTIFY=USER  
+//**************************************************************** 
+//*            DB2 LOAD UTILITY (RESTARTABLE) 
+//**************************************************************** 
+//UTIL EXEC DSNUPROC,SYSTEM=DSN,UID='LOADDATA',UTPROC=" 
+//* 
+//*  UTILITY WORK DATAETS 
+//* 
+//DSNUPROC.SORTWK01 DDUNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SORTWK02 DDUNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SORTOUT DD DSN=CAT.SORTOUT,DISP=(MOD,CATLG,CATLG), 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SYSMAP DD DSN=CAT.SYSUT1,DISP=(MOD,DELETE,CATLG), 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)),DCB=BUFNO=20 
+//DSNUPROC.SYSUT1 DD DSN=CAT.SYSUT1,DISP=(MOD,DELETE,CATLG), 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)),DCB=BUFNO=20 
+//DSNUPROC.SYSDISC DD DSN=CAT.SYSDISC,DISP=(MOD,DELETE,CATLG), 
+//        UNIT=SYSDA,SPACE=(CYL,(1,1)) 
+//DSNUPROC.SYSERR DD DSN=CAT.SYSERR,DISP=(MOD,DELETE,CATLG), 
+//        UNIT=SYSDA,SPACE=(CYL,(1,1)) 
+//DSNUPROC.SYSREC00 DD DSN=CAT.LOAD.INPUT.DATASETA,DISP=SHR,DCB=BUFNO=20 
+//DSNUPROC.UTPRINT DD SYSOUT=X 
+//* 
+//*  UTILITY INPUT CONTROL STATEMENTS 
+//*       The LOAD statement reloads the DSN8810.ACT table 
+//* 
+//DSNUPROC.SYSIN    DD  *
+    LOAD DATA REPLACE INDDN SYSREC00
+     LOG NO    
+     INTO TABLE DSN8810.ACT        
+     (ACTNO       POSITION ( 1 )  SMALLINT,         
+     ACTKWD      POSITION ( 3 )  CHAR ( 6 ),         
+     ACTDESC     POSITION ( 9 )  VARCHAR        
+     ) 
+/* 
+//
+
+
+//DB2JOBU  JOB (UTILITY),'DB2 LOAD',MSGCLASS=X,CLASS=X, 
+//   NOTIFY=USER,REGION=3M 
+//* 
+//**************************************************************** 
+//* 
+//*            DB2 LOAD UTILITY (NON-RESTARTABLE) 
+//* 
+//**************************************************************** 
+//* 
+//UTIL EXEC DSNUPROC,SYSTEM=DSN,UID='LOADDATA',UTPROC=" 
+//* 
+//*  UTILITY WORK DATASETS 
+//* 
+//DSNUPROC.SORTWK01 DD DSN=&&SORTWK01, 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SORTWK02 DD DSN=&&SORTWK02, 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SORTOUT DD DSN=&&SORTOUT, 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SYSMAP DD DSN=CAT.SYSUT1,DISP=(MOD,CATLG,CATLG), 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SYSUT1 DD DSN=&&SYSUT1,DCB=BUFNO=10 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SYSDISC DD DSN=CAT.SYSDISC,DISP=(MOD,CATLG,CATLG), 
+//        UNIT=SYSDA,SPACE=(CYL,(1,1)) 
+//DSNUPROC.SYSERR DD DSN=&&SYSERR, 
+//        UNIT=SYSDA,SPACE=(CYL,(1,1)) 
+//DSNUPROC.SYSREC00 DD DSN=CAT.LOAD.INPUT.DATASETD,DISP=SHR,DCB=BUFNO=10 
+//DSNUPROC.UTPRINT DD SYSOUT=X 
+//* 
+//*  UTILITY INPUT CONTROL STATEMENTS 
+//*       The LOAD statement adds the data in SYSREC00 to 
+//*       the DSN8810.DEPT table. 
+//* 
+//DSNUPROC.SYSIN    DD  *
+    LOAD DATA RESUME(YES) ENFORCE CONSTRAINTS 
+    LOG NO    
+    INDDN SYSREC00 INTO TABLE DSN8810.DEPT        
+    (DEPTNO       POSITION(    1)                      
+    CHAR(        3),         
+    DEPTNAME     POSITION(    4)                      
+    VARCHAR,         
+    MGRNO        POSITION(   42)                      
+    CHAR(        6)  NULLIF(   48)='?',         
+    ADMRDEPT     POSITION(   49)                      
+    CHAR(        3),         
+    LOCATION     POSITION(   52)                      
+    CHAR(       16)  NULLIF(   68)='?'       
+    ) 
+/* 
+//

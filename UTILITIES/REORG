@@ -1,0 +1,61 @@
+//DB2JOBU  JOB (UTILITY),'DB2 REORG',MSGCLASS=X,CLASS=X, 
+//          NOTIFY=USER 
+//**************************************************************** 
+//*            DB2 REORG UTILITY (RESTARTABLE) 
+//**************************************************************** 
+//* 
+//UTIL EXEC DSNUPROC,SYSTEM=DSN,UID='REORGTS',UTPROC=" 
+//* 
+//*  UTILITY WORK DATASETS 
+//* 
+//DSNUPROC.SORTWK01 DDUNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SORTWK02 DDUNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SORTOUT DD DSN=CAT.SORTOUT,DISP=(MOD,DELETE,CATLG), 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SYSUT1 DD DSN=CAT.SYSUT1,DISP=(MOD,DELETE,CATLG), 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)),DCB=BUFNO=20 
+//DSNUPROC.SYSREC DD DSN=OUTPUT.DATASETD,DISP=(MOD,CATLG,CATLG),
+           UNIT=SYSDA,SPACE=(CYL,(15,5)),DCB=BUFNO=20 
+//DSNUPROC.SYSPRINT DD SYSOUT=* 
+//DSNUPROC.UTPRINT DD SYSOUT=* 
+//* 
+//*  UTILITY INPUT CONTROL STATEMENTS 
+//*       The REORG statement reorganizes the second partition 
+//*       of DSN8D81A.DSN8S81E. 
+//* 
+//DSNUPROC.SYSIN    DD  *
+     REORG TABLESPACE DSN8D81A.DSN8S81E PART 2 
+/* 
+//
+
+
+//DB2JOBU  JOB (UTILITY),'DB2 REORG',MSGCLASS=X,CLASS=X, 
+//          NOTIFY=USER,REGION=0M 
+//**************************************************************** 
+//*            DB2 REORG UTILITY (NON-RESTARTABLE) 
+//**************************************************************** 
+//UTIL EXEC DSNUPROC,SYSTEM=DSN,UID='REORGTS',UTPROC=" 
+//* 
+//*  UTILITY WORK DATASETS 
+//* 
+//DSNUPROC.SORTWK01 DDUNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SORTWK02 DDUNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SORTOUT DD DSN=&&SORTOUT, 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)) 
+//DSNUPROC.SYSUT1 DD DSN=&&SYSUT1, 
+//        UNIT=SYSDA,SPACE=(CYL,(2,1)),DCB=BUFNO=20 
+//DSNUPROC.SYSREC DD DSN=&&SYSREC, 
+//        UNIT=SYSDA,SPACE=(CYL,(15,5)),DCB=BUFNO=20 
+//DSNUPROC.SYSPRINT DD SYSOUT=* 
+//DSNUPROC.UTPRINT DD SYSOUT=* 
+//* 
+//*  UTILITY INPUT CONTROL STATEMENTS 
+//*    1. The first REORG statement reorganizes the 
+//*       named table space. 
+//*    2. The second REORG statement reorganizes the 
+//*       named index. 
+//* //DSNUPROC.SYSIN    DD  * 
+     REORG TABLESPACE DSN8D81A.DSN8S81D
+     REORG INDEX (DSN8810.XACT1) 
+ /* 
+ //
